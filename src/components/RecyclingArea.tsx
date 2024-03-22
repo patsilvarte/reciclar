@@ -26,16 +26,20 @@ const bins: Bin[] = [
 const RecyclingArea = () => {
   // draggable items
   const draggableMarkup1 = <Draggable id="garrafa">Garrafa</Draggable>;
+  const draggableMarkup2 = (
+    <Draggable id="folha-papel">Folha de Papel</Draggable>
+  );
 
   // pars parent - items
   const initLocation: LocationsSet = {
-    empty: ["garrafa"],
+    empty: ["garrafa", "folha-papel"],
     yellow: [],
     blue: [],
     green: [],
   };
   const draggableMarkupsSet: Item[] = [
     { item: draggableMarkup1, id: "garrafa" },
+    { item: draggableMarkup2, id: "folha-papel" },
   ];
 
   // value savers for location and render of draggable items
