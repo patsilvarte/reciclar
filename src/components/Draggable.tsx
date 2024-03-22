@@ -4,11 +4,12 @@ import { CSS } from "@dnd-kit/utilities";
 
 interface DraggableProps {
   children?: ReactNode;
+  id: string;
 }
 
 const Draggable: FC<DraggableProps> = (props) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: "draggable",
+    id: props.id,
   });
   const style = transform
     ? {
@@ -18,7 +19,13 @@ const Draggable: FC<DraggableProps> = (props) => {
     : undefined;
 
   return (
-    <button ref={setNodeRef} style={style} {...listeners} {...attributes}>
+    <button
+      ref={setNodeRef}
+      style={style}
+      {...listeners}
+      {...attributes}
+      className="border-white border-2 rounded px-2 py-1"
+    >
       {props.children}
     </button>
   );
