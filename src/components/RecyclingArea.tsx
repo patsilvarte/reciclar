@@ -1,95 +1,70 @@
-import { UniqueIdentifier, DragEndEvent, DndContext } from "@dnd-kit/core";
-import { useState } from "react";
-import Draggable from "./Draggable";
+import { DragEndEvent, DndContext } from "@dnd-kit/core";
+import { useMemo, useState } from "react";
+import { Bin, LocationsSet, Item, ItemsIds, BinIds } from "../types";
+import { generateMarkupsSet, getItemsPerSection } from "../utils";
 import RecyclingBin from "./RecyclingBin";
-
-export type RecyclingBinName = "Amarelo" | "Azul" | "Verde";
-type BinIds = "empty" | "yellow" | "blue" | "green";
-type ItemsIds = "garrafa" | "folha-papel" | "caixa-cartão";
-
-type Bin = {
-  name: RecyclingBinName;
-  id: BinIds;
-};
-type LocationsSet = Record<BinIds, ItemsIds[]>;
-type Item = {
-  id: ItemsIds;
-  item: JSX.Element;
-};
 
 const bins: Bin[] = [
   { name: "Amarelo", id: "yellow" },
   { name: "Azul", id: "blue" },
   { name: "Verde", id: "green" },
 ];
+const ids: ItemsIds[] = ["garrafa", "folha-papel", "caixa-cartão"];
+const initLocation: LocationsSet = {
+  empty: ids,
+  yellow: [],
+  blue: [],
+  green: [],
+};
 
 const RecyclingArea = () => {
-  // draggable items
-  const draggableMarkup1 = <Draggable id="garrafa">Garrafa</Draggable>;
-  const draggableMarkup2 = (
-    <Draggable id="folha-papel">Folha de Papel</Draggable>
-  );
-
-  // pars parent - items
-  const initLocation: LocationsSet = {
-    empty: ["garrafa", "folha-papel"],
-    yellow: [],
-    blue: [],
-    green: [],
-  };
-  const draggableMarkupsSet: Item[] = [
-    { item: draggableMarkup1, id: "garrafa" },
-    { item: draggableMarkup2, id: "folha-papel" },
-  ];
-
   // value savers for location and render of draggable items
   const [draggableLocation, setDraggableLocation] =
     useState<LocationsSet>(initLocation);
+
+  // initialize draggable items
+  const draggableMarkupsSet: Item[] = useMemo(
+    () => generateMarkupsSet(ids),
+    []
+  );
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { over, active } = event;
     const target = active.id as ItemsIds;
 
-    // remove from previous place
+    // copy object to avaid state mutation
+    const originalLocation = { ...draggableLocation };
+    // remove from previous section
     const newLocations: LocationsSet = {
-      empty: draggableLocation.empty.filter((item) => item !== target),
-      yellow: draggableLocation.yellow.filter((item) => item !== target),
-      blue: draggableLocation.blue.filter((item) => item !== target),
-      green: draggableLocation.green.filter((item) => item !== target),
+      empty: originalLocation.empty.filter((item) => item !== target),
+      yellow: originalLocation.yellow.filter((item) => item !== target),
+      blue: originalLocation.blue.filter((item) => item !== target),
+      green: originalLocation.green.filter((item) => item !== target),
     };
 
     // add to new position
     if (over) {
       const section = over.id as BinIds;
-      setDraggableLocation({
-        ...newLocations,
-        [section]: [...newLocations[section], target],
-      });
+      newLocations[section].push(target);
     } else {
-      setDraggableLocation({
-        ...newLocations,
-        empty: [...draggableLocation.empty, target],
-      });
+      newLocations.empty.push(target);
     }
+    setDraggableLocation(newLocations);
   };
 
   return (
     <DndContext onDragEnd={handleDragEnd}>
       <>
-        {draggableLocation.empty.map((itemId) => {
-          return draggableMarkupsSet.find((item) => item.id === itemId)?.item;
-        })}
+        {getItemsPerSection(draggableMarkupsSet, draggableLocation.empty)}
         <div className="border-white border-2 rounded flex justify-center items-center p-2">
           {bins.map(({ id, name }) => (
             <RecyclingBin
               id={id}
               name={name}
-              items={draggableLocation[id].map((itemId) => {
-                const element = draggableMarkupsSet.find(
-                  (item) => item.id === itemId
-                );
-                return element?.item || <></>;
-              })}
+              items={getItemsPerSection(
+                draggableMarkupsSet,
+                draggableLocation[id]
+              )}
             />
           ))}
         </div>

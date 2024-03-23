@@ -11,6 +11,7 @@ const Droppable: FC<DroppableProps> = (props) => {
     id: props.id,
   });
   const style = {
+    borderColor: isOver ? "green" : undefined,
     color: isOver ? "green" : undefined,
     height: "200px",
     width: "200px",

@@ -13,10 +13,11 @@ const Draggable: FC<DraggableProps> = (props) => {
   });
   const style = transform
     ? {
-        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-        //transform: CSS.Translate.toString(transform),
+        color: "white",
+        // transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+        transform: CSS.Translate.toString(transform),
       }
-    : undefined;
+    : { color: "white" };
 
   return (
     <button
