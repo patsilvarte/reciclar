@@ -1,7 +1,8 @@
 import { DragEndEvent, DndContext } from "@dnd-kit/core";
-import { useMemo, useState } from "react";
-import { Bin, LocationsSet, Item, ItemsIds, BinIds } from "../types";
-import { generateMarkupsSet, getItemsPerSection } from "../utils";
+import { useState } from "react";
+import { Bin, LocationsSet, BinIds, Garbage } from "../types";
+import { getItemsPerSection } from "../utils";
+import NotSortedGarbage from "./NotSortedGarbage";
 import RecyclingBin from "./RecyclingBin";
 
 const bins: Bin[] = [
@@ -9,7 +10,15 @@ const bins: Bin[] = [
   { name: "Azul", id: "blue" },
   { name: "Verde", id: "green" },
 ];
-const ids: ItemsIds[] = ["garrafa", "folha-papel", "caixa-cartão"];
+const garbage: Garbage[] = [
+  { id: "garrafa-agua", displaynName: "Garrafa de água", rightBin: "yellow" },
+  { id: "lata-atum", displaynName: "Lata de Atum", rightBin: "yellow" },
+  { id: "garrafa-vinho", displaynName: "Garrafa de vinho", rightBin: "green" },
+  { id: "perfume", displaynName: "Frasco de Perfume", rightBin: "green" },
+  { id: "caixa", displaynName: "Caixa de Cartão", rightBin: "blue" },
+  { id: "folha", displaynName: "folha de papel", rightBin: "blue" },
+];
+const ids: string[] = ["garrafa-agua", "folha", "caixa"];
 const initLocation: LocationsSet = {
   empty: ids,
   yellow: [],
@@ -22,15 +31,9 @@ const RecyclingArea = () => {
   const [draggableLocation, setDraggableLocation] =
     useState<LocationsSet>(initLocation);
 
-  // initialize draggable items
-  const draggableMarkupsSet: Item[] = useMemo(
-    () => generateMarkupsSet(ids),
-    []
-  );
-
   const handleDragEnd = (event: DragEndEvent) => {
     const { over, active } = event;
-    const target = active.id as ItemsIds;
+    const target = active.id as string;
 
     // copy object to avaid state mutation
     const originalLocation = { ...draggableLocation };
@@ -55,16 +58,15 @@ const RecyclingArea = () => {
   return (
     <DndContext onDragEnd={handleDragEnd}>
       <>
-        {getItemsPerSection(draggableMarkupsSet, draggableLocation.empty)}
+        <NotSortedGarbage
+          items={getItemsPerSection(garbage, draggableLocation.empty)}
+        />
         <div className="border-white border-2 rounded flex justify-center items-center p-2">
           {bins.map(({ id, name }) => (
             <RecyclingBin
               id={id}
               name={name}
-              items={getItemsPerSection(
-                draggableMarkupsSet,
-                draggableLocation[id]
-              )}
+              items={getItemsPerSection(garbage, draggableLocation[id])}
             />
           ))}
         </div>

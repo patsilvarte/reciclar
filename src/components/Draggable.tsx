@@ -5,19 +5,21 @@ import { CSS } from "@dnd-kit/utilities";
 interface DraggableProps {
   children?: ReactNode;
   id: string;
+  color?: string;
 }
 
-const Draggable: FC<DraggableProps> = (props) => {
+const Draggable: FC<DraggableProps> = ({ id, children, color = "white" }) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: props.id,
+    id: id,
   });
   const style = transform
     ? {
+        borderColor: "white",
         color: "white",
         // transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
         transform: CSS.Translate.toString(transform),
       }
-    : { color: "white" };
+    : { borderColor: color };
 
   return (
     <button
@@ -27,7 +29,7 @@ const Draggable: FC<DraggableProps> = (props) => {
       {...attributes}
       className="border-white border-2 rounded px-2 py-1"
     >
-      {props.children}
+      {children}
     </button>
   );
 };
