@@ -1,5 +1,5 @@
 import { DragEndEvent, DndContext } from "@dnd-kit/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Bin, LocationsSet, BinIds, Garbage } from "../types";
 import { getItemsPerSection } from "../utils";
 import NotSortedGarbage from "./NotSortedGarbage";
@@ -18,9 +18,8 @@ const garbage: Garbage[] = [
   { id: "caixa", displaynName: "Caixa de Cartão", rightBin: "blue" },
   { id: "folha", displaynName: "folha de papel", rightBin: "blue" },
 ];
-const ids: string[] = ["garrafa-agua", "folha", "caixa"];
 const initLocation: LocationsSet = {
-  empty: ids,
+  empty: [],
   yellow: [],
   blue: [],
   green: [],
@@ -30,6 +29,14 @@ const RecyclingArea = () => {
   // value savers for location and render of draggable items
   const [draggableLocation, setDraggableLocation] =
     useState<LocationsSet>(initLocation);
+
+  useEffect(() => {
+    let baseLocations = { ...initLocation };
+    garbage.forEach((item) => {
+      baseLocations.empty.push(item.id);
+    });
+    setDraggableLocation(baseLocations);
+  }, []);
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { over, active } = event;
