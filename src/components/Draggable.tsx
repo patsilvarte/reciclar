@@ -24,12 +24,15 @@ const Draggable: FC<DraggableProps> = ({ id, children, color = "white" }) => {
   return (
     <button
       ref={setNodeRef}
-      style={style}
       {...listeners}
       {...attributes}
-      className="border-white border-2 rounded px-2 py-1"
+      className="flex justify-center items-center flex-col m-4"
     >
-      {children}
+      <div
+        style={style}
+        className="border-white border-2 rounded px-2 py-1 h-20 w-20 rounded-full"
+      ></div>
+      <p className="text-base ">{children}</p>
     </button>
   );
 };
