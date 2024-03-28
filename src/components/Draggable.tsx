@@ -12,27 +12,31 @@ const Draggable: FC<DraggableProps> = ({ id, children, color = "white" }) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: id,
   });
-  const style = transform
+  const styleButton = transform
+    ? { transform: CSS.Translate.toString(transform) }
+    : {};
+  const styleItem = transform
     ? {
         borderColor: "white",
         color: "white",
-        // transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-        transform: CSS.Translate.toString(transform),
       }
-    : { borderColor: color };
+    : { borderColor: color, color: color };
 
   return (
     <button
       ref={setNodeRef}
       {...listeners}
       {...attributes}
+      style={styleButton}
       className="flex justify-center items-center flex-col m-4"
     >
       <div
-        style={style}
+        style={styleItem}
         className="border-white border-2 rounded px-2 py-1 h-20 w-20 rounded-full"
       ></div>
-      <p className="text-base ">{children}</p>
+      <p style={styleItem} className="text-base ">
+        {children}
+      </p>
     </button>
   );
 };
