@@ -1,7 +1,7 @@
 import { DragEndEvent, DndContext } from "@dnd-kit/core";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Bin, LocationsSet, BinIds, Garbage } from "../types";
-import { getItemsPerSection } from "../utils";
+import { areAllItemsOnRightSpot, getItemsPerSection } from "../utils";
 import NotSortedGarbage from "./NotSortedGarbage";
 import RecyclingBin from "./RecyclingBin";
 
@@ -38,6 +38,11 @@ const RecyclingArea = () => {
     setDraggableLocation(baseLocations);
   }, []);
 
+  const isFinished = useMemo(
+    () => areAllItemsOnRightSpot(draggableLocation, garbage),
+    [draggableLocation]
+  );
+
   const handleDragEnd = (event: DragEndEvent) => {
     const { over, active } = event;
     const target = active.id as string;
@@ -65,6 +70,12 @@ const RecyclingArea = () => {
   return (
     <DndContext onDragEnd={handleDragEnd}>
       <>
+        {isFinished && (
+          <>
+            <p>Parabéns!</p>
+            <p>Conseguiste colocar todo o lixo no seu sítio.</p>
+          </>
+        )}
         <NotSortedGarbage
           items={getItemsPerSection(garbage, draggableLocation.empty)}
         />
