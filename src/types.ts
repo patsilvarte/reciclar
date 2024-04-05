@@ -4,6 +4,7 @@ export type BinIds = "empty" | "yellow" | "blue" | "green";
 export type Bin = {
   name: RecyclingBinName;
   id: BinIds;
+  img: string;
 };
 export type LocationsSet = Record<BinIds, string[]>;
 export type Garbage = {

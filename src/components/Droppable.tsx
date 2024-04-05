@@ -11,17 +11,14 @@ const Droppable: FC<DroppableProps> = (props) => {
     id: props.id,
   });
   const style = {
-    borderColor: isOver ? "green" : undefined,
     color: isOver ? "green" : undefined,
-    height: "200px",
-    width: "200px",
   };
 
   return (
     <div
       ref={setNodeRef}
       style={style}
-      className="border-white border-2 rounded flex justify-center items-center"
+      className="flex justify-center items-center relative w-full h-full"
     >
       {props.children}
     </div>

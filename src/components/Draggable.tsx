@@ -13,7 +13,7 @@ const Draggable: FC<DraggableProps> = ({ id, children, color = "white" }) => {
     id: id,
   });
   const styleButton = transform
-    ? { transform: CSS.Translate.toString(transform) }
+    ? { transform: CSS.Translate.toString(transform), zIndex: 3 }
     : {};
   const styleItem = transform
     ? {
