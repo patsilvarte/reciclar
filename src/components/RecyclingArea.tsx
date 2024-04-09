@@ -1,10 +1,22 @@
 import { DragEndEvent, DndContext } from "@dnd-kit/core";
 import { useEffect, useState, useMemo } from "react";
-import { LocationsSet, BinIds, Garbage } from "../types";
-import { areAllItemsOnRightSpot, getItemsPerSection } from "../utils";
-import NotSortedGarbage from "./NotSortedGarbage";
+import { LocationsSet, BinIds, Garbage, Bin } from "../types";
+import { areAllItemsOnRightSpot } from "../utils";
+import skyBackground from "../assets/sky.jpg";
 import Street from "./Street";
+import RecyclingBin from "./RecyclingBin";
+import { getItemsPerSection } from "../utils";
+import yellowBin from "../assets/yellow_bin.png";
+import blueBin from "../assets/blue_bin.png";
+import greenBin from "../assets/green_bin.png";
+import NotSortedGarbage from "./NotSortedGarbage";
+import ChallangeCompleted from "./ChallangeCompleted";
 
+const bins: Bin[] = [
+  { name: "Amarelo", id: "yellow", img: yellowBin },
+  { name: "Azul", id: "blue", img: blueBin },
+  { name: "Verde", id: "green", img: greenBin },
+];
 const garbage: Garbage[] = [
   { id: "garrafa-agua", displaynName: "Garrafa de água", rightBin: "yellow" },
   { id: "lata-atum", displaynName: "Lata de Atum", rightBin: "yellow" },
@@ -64,18 +76,37 @@ const RecyclingArea = () => {
 
   return (
     <DndContext onDragEnd={handleDragEnd}>
-      <>
-        {isFinished && (
-          <>
-            <p>Parabéns!</p>
-            <p>Conseguiste colocar todo o lixo no seu sítio.</p>
-          </>
-        )}
-        <NotSortedGarbage
-          items={getItemsPerSection(garbage, draggableLocation.empty)}
-        />
-        <Street garbage={garbage} draggableLocation={draggableLocation} />
-      </>
+      <div className="flex w-screen h-screen flex-col">
+        <div
+          className="flex justify-center w-screen h-full flex-col"
+          style={{
+            background: `url(${skyBackground})`,
+            backgroundRepeat: "round",
+          }}
+        >
+          <div className="w-full">
+            {isFinished ? (
+              <ChallangeCompleted />
+            ) : (
+              <NotSortedGarbage
+                items={getItemsPerSection(garbage, draggableLocation.empty)}
+              />
+            )}
+          </div>
+        </div>
+        <Street garbage={garbage} draggableLocation={draggableLocation}>
+          <div className="w-4/5 flex justify-around gap-4 items-center">
+            {bins.map(({ id, name, img }) => (
+              <RecyclingBin
+                id={id}
+                img={img}
+                name={name}
+                items={getItemsPerSection(garbage, draggableLocation[id])}
+              />
+            ))}
+          </div>
+        </Street>
+      </div>
     </DndContext>
   );
 };

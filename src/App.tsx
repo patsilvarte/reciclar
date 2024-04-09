@@ -6,7 +6,6 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p className="text-4xl">Sabes Reciclar?</p>
         <RecyclingArea />
       </header>
     </div>

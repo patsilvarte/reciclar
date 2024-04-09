@@ -1,44 +1,34 @@
-import yellowBin from "../assets/yellow_bin.png";
-import blueBin from "../assets/blue_bin.png";
-import greenBin from "../assets/green_bin.png";
 import street from "../assets/street.jpg";
-import { Bin, Garbage, LocationsSet } from "../types";
-import RecyclingBin from "./RecyclingBin";
-import { getItemsPerSection } from "../utils";
-import { FC } from "react";
+import beach from "../assets/beach.jpg";
+import { Garbage, LocationsSet } from "../types";
 
-const bins: Bin[] = [
-  { name: "Amarelo", id: "yellow", img: yellowBin },
-  { name: "Azul", id: "blue", img: blueBin },
-  { name: "Verde", id: "green", img: greenBin },
-];
+import { FC } from "react";
+import styled from "styled-components";
 
 interface StreetProps {
   garbage: Garbage[];
   draggableLocation: LocationsSet;
+  children: any;
 }
 
-const Street: FC<StreetProps> = ({ garbage, draggableLocation }) => {
-  return (
-    <div className="flex justify-center w-screen absolute bottom-0">
-      <div
-        style={{
-          background: `url(${street})`,
-          backgroundRepeat: "round",
-        }}
-        className="absolute bottom-0 w-full h-1/3"
-      />
+const Background = styled.div`
+  background-repeat: round;
+  position: absolute;
+  width: 100%;
+`;
 
-      <div className=" w-4/5 flex justify-around gap-4  items-center">
-        {bins.map(({ id, name, img }) => (
-          <RecyclingBin
-            id={id}
-            img={img}
-            name={name}
-            items={getItemsPerSection(garbage, draggableLocation[id])}
-          />
-        ))}
-      </div>
+const Street: FC<StreetProps> = ({ garbage, draggableLocation, children }) => {
+  return (
+    <div className="flex justify-center w-screen relative">
+      <Background
+        style={{ backgroundImage: `url(${street})` }}
+        className="bottom-0 h-1/3"
+      />
+      <Background
+        style={{ backgroundImage: `url(${beach})` }}
+        className="top-0  h-2/3"
+      />
+      {children}
     </div>
   );
 };
