@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import Footer from "./components/Footer";
 import RecyclingArea from "./components/RecyclingArea";
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
       <header className="App-header">
         <RecyclingArea />
       </header>
+      <Footer />
     </div>
   );
 }
