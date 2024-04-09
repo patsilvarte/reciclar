@@ -18,7 +18,7 @@ const Droppable: FC<DroppableProps> = (props) => {
     <div
       ref={setNodeRef}
       style={style}
-      className="flex justify-center items-center relative w-full h-full"
+      className="flex justify-center items-center flex-col relative w-full h-full"
     >
       {props.children}
     </div>

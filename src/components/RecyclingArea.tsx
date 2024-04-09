@@ -1,18 +1,10 @@
 import { DragEndEvent, DndContext } from "@dnd-kit/core";
 import { useEffect, useState, useMemo } from "react";
-import { Bin, LocationsSet, BinIds, Garbage } from "../types";
+import { LocationsSet, BinIds, Garbage } from "../types";
 import { areAllItemsOnRightSpot, getItemsPerSection } from "../utils";
 import NotSortedGarbage from "./NotSortedGarbage";
-import RecyclingBin from "./RecyclingBin";
-import yellowBin from "../assets/yellow_bin.png";
-import blueBin from "../assets/blue_bin.png";
-import greenBin from "../assets/green_bin.png";
+import Street from "./Street";
 
-const bins: Bin[] = [
-  { name: "Amarelo", id: "yellow", img: yellowBin },
-  { name: "Azul", id: "blue", img: blueBin },
-  { name: "Verde", id: "green", img: greenBin },
-];
 const garbage: Garbage[] = [
   { id: "garrafa-agua", displaynName: "Garrafa de água", rightBin: "yellow" },
   { id: "lata-atum", displaynName: "Lata de Atum", rightBin: "yellow" },
@@ -82,16 +74,7 @@ const RecyclingArea = () => {
         <NotSortedGarbage
           items={getItemsPerSection(garbage, draggableLocation.empty)}
         />
-        <div className=" w-4/5	border-white border-2 rounded flex justify-around gap-4  items-center p-2">
-          {bins.map(({ id, name, img }) => (
-            <RecyclingBin
-              id={id}
-              img={img}
-              name={name}
-              items={getItemsPerSection(garbage, draggableLocation[id])}
-            />
-          ))}
-        </div>
+        <Street garbage={garbage} draggableLocation={draggableLocation} />
       </>
     </DndContext>
   );
