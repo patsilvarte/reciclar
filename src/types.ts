@@ -11,6 +11,7 @@ export type Garbage = {
   id: string;
   displaynName: string;
   rightBin: BinIds;
+  img: string;
 };
 export type Item = {
   id: string;

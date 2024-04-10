@@ -20,8 +20,13 @@ const RecyclingBin: FC<RecyclingBinProps> = ({ id, name, items, img }) => {
         className="absolute w-full h-full object-contain"
       />
       <Droppable key={id} id={id}>
-        {items.map(({ id: itemId, displaynName, rightBin }) => (
-          <Draggable id={itemId} isPlacedRight={rightBin === id} insideBin>
+        {items.map(({ id: itemId, displaynName, rightBin, img }) => (
+          <Draggable
+            id={itemId}
+            isPlacedRight={rightBin === id}
+            insideBin
+            img={img}
+          >
             {displaynName}
           </Draggable>
         ))}

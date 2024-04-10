@@ -9,6 +9,7 @@ interface DraggableProps {
   id: string;
   isPlacedRight?: boolean;
   insideBin?: boolean;
+  img: string;
 }
 
 const Draggable: FC<DraggableProps> = ({
@@ -16,6 +17,7 @@ const Draggable: FC<DraggableProps> = ({
   children,
   isPlacedRight,
   insideBin = false,
+  img,
 }) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: id,
@@ -23,18 +25,14 @@ const Draggable: FC<DraggableProps> = ({
   const styleButton = transform
     ? { transform: CSS.Translate.toString(transform), zIndex: 3 }
     : {};
-  const styleItem =
-    transform || !insideBin
-      ? {
-          borderColor: "white",
-          color: "white",
-          // background-image
-        }
-      : {
-          borderColor: isPlacedRight ? "green" : "red",
-          color: isPlacedRight ? "green" : "red",
-          // background-image
-        };
+
+  const styleItem = {
+    borderColor:
+      transform || !insideBin ? "white" : isPlacedRight ? "green" : "red",
+    color: transform || !insideBin ? "white" : isPlacedRight ? "green" : "red",
+    backgroundImage: `url(${img})`,
+    backgroundSize: "contain",
+  };
 
   return (
     <button
@@ -56,9 +54,7 @@ const Draggable: FC<DraggableProps> = ({
             <img src={itemWrong} alt="wrong" className="w-3/4" />
           ))}
       </div>
-      <p style={styleItem} className="text-base ">
-        {children}
-      </p>
+      <p className="text-base ">{children}</p>
     </button>
   );
 };
