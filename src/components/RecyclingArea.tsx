@@ -2,7 +2,6 @@ import { DragEndEvent, DndContext } from "@dnd-kit/core";
 import { useEffect, useState, useMemo } from "react";
 import { LocationsSet, BinIds, Garbage, Bin } from "../types";
 import { areAllItemsOnRightSpot } from "../utils";
-import skyBackground from "../assets/sky.jpg";
 import Street from "./Street";
 import RecyclingBin from "./RecyclingBin";
 import { getItemsPerSection } from "../utils";
@@ -11,6 +10,7 @@ import blueBin from "../assets/blue_bin.png";
 import greenBin from "../assets/green_bin.png";
 import NotSortedGarbage from "./NotSortedGarbage";
 import ChallangeCompleted from "./ChallangeCompleted";
+import Sky from "./Sky";
 
 const bins: Bin[] = [
   { name: "Amarelo", id: "yellow", img: yellowBin },
@@ -77,23 +77,15 @@ const RecyclingArea = () => {
   return (
     <DndContext onDragEnd={handleDragEnd}>
       <div className="flex w-screen h-screen flex-col">
-        <div
-          className="flex justify-center w-screen h-full flex-col"
-          style={{
-            background: `url(${skyBackground})`,
-            backgroundRepeat: "round",
-          }}
-        >
-          <div className="w-full">
-            {isFinished ? (
-              <ChallangeCompleted />
-            ) : (
-              <NotSortedGarbage
-                items={getItemsPerSection(garbage, draggableLocation.empty)}
-              />
-            )}
-          </div>
-        </div>
+        <Sky>
+          {isFinished ? (
+            <ChallangeCompleted />
+          ) : (
+            <NotSortedGarbage
+              items={getItemsPerSection(garbage, draggableLocation.empty)}
+            />
+          )}
+        </Sky>
         <Street garbage={garbage} draggableLocation={draggableLocation}>
           <div className="w-4/5 flex justify-around gap-4 items-center">
             {bins.map(({ id, name, img }) => (

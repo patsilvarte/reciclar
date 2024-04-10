@@ -8,7 +8,7 @@ import styled from "styled-components";
 interface StreetProps {
   garbage: Garbage[];
   draggableLocation: LocationsSet;
-  children: any;
+  children: JSX.Element;
 }
 
 const Background = styled.div`
