@@ -10,7 +10,7 @@ const NotSortedGarbage: FC<NotSortedGarbageProps> = ({ items }) => {
   return (
     <>
       <p className="text-4xl">Sabes Reciclar?</p>
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center flex-wrap">
         {items.map(({ id, displaynName, img }) => (
           <Draggable id={id} img={img}>
             {displaynName}

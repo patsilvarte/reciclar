@@ -13,6 +13,7 @@ import garrafaAgua from "../assets/garbage/garrafa_agua.png";
 import lataSumo from "../assets/garbage/lata_sumo.png";
 import garrafaVidro from "../assets/garbage/garrafa_vidro.png";
 import folhaPapel from "../assets/garbage/folha_papel.png";
+import frascoPerfume from "../assets/garbage/frasco_perfume.png";
 import NotSortedGarbage from "./NotSortedGarbage";
 import ChallangeCompleted from "./ChallangeCompleted";
 import Sky from "./Sky";
@@ -45,7 +46,7 @@ const garbage: Garbage[] = [
     id: "perfume",
     displaynName: "Frasco de Perfume",
     rightBin: "green",
-    img: caixaCartao,
+    img: frascoPerfume,
   },
   {
     id: "caixa",

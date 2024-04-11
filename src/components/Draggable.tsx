@@ -24,7 +24,10 @@ const Draggable: FC<DraggableProps> = ({
   });
   const styleButton = transform
     ? { transform: CSS.Translate.toString(transform), zIndex: 3 }
-    : {};
+    : {
+        margin: insideBin ? "2px" : "20px",
+        maxWidth: insideBin ? "100px" : "",
+      };
 
   const styleItem = {
     borderColor:
@@ -32,6 +35,8 @@ const Draggable: FC<DraggableProps> = ({
     color: transform || !insideBin ? "white" : isPlacedRight ? "green" : "red",
     backgroundImage: `url(${img})`,
     backgroundSize: "contain",
+    height: insideBin ? "60px" : "80px",
+    width: insideBin ? "60px" : "80px",
   };
 
   return (
@@ -44,7 +49,7 @@ const Draggable: FC<DraggableProps> = ({
     >
       <div
         style={styleItem}
-        className="border-white border-2 rounded px-2 py-1 h-20 w-20 rounded-full flex justify-center items-center"
+        className="border-white border-2 rounded rounded-full flex justify-center items-center"
       >
         {!transform &&
           insideBin &&
@@ -54,7 +59,7 @@ const Draggable: FC<DraggableProps> = ({
             <img src={itemWrong} alt="wrong" className="w-3/4" />
           ))}
       </div>
-      <p className="text-base ">{children}</p>
+      <p className="text-base">{children}</p>
     </button>
   );
 };
