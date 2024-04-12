@@ -17,3 +17,8 @@ export type Item = {
   id: string;
   item: JSX.Element;
 };
+
+export type Level = {
+  bins: Bin[];
+  garbage: Garbage[];
+};

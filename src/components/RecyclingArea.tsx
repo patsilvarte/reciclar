@@ -1,66 +1,16 @@
 import { DragEndEvent, DndContext } from "@dnd-kit/core";
 import { useEffect, useState, useMemo } from "react";
-import { LocationsSet, BinIds, Garbage, Bin } from "../types";
+import { LocationsSet, BinIds } from "../types";
 import { areAllItemsOnRightSpot } from "../utils";
 import Street from "./Street";
 import RecyclingBin from "./RecyclingBin";
 import { getItemsPerSection } from "../utils";
-import yellowBin from "../assets/yellow_bin.png";
-import blueBin from "../assets/blue_bin.png";
-import greenBin from "../assets/green_bin.png";
-import caixaCartao from "../assets/garbage/caixa_cartao.png";
-import garrafaAgua from "../assets/garbage/garrafa_agua.png";
-import lataSumo from "../assets/garbage/lata_sumo.png";
-import garrafaVidro from "../assets/garbage/garrafa_vidro.png";
-import folhaPapel from "../assets/garbage/folha_papel.png";
-import frascoPerfume from "../assets/garbage/frasco_perfume.png";
+
 import NotSortedGarbage from "./NotSortedGarbage";
 import ChallangeCompleted from "./ChallangeCompleted";
 import Sky from "./Sky";
+import useLevels from "../useLevels";
 
-const bins: Bin[] = [
-  { name: "Amarelo", id: "yellow", img: yellowBin },
-  { name: "Azul", id: "blue", img: blueBin },
-  { name: "Verde", id: "green", img: greenBin },
-];
-const garbage: Garbage[] = [
-  {
-    id: "garrafa-agua",
-    displaynName: "Garrafa de água",
-    rightBin: "yellow",
-    img: garrafaAgua,
-  },
-  {
-    id: "lata-bebida",
-    displaynName: "Lata de sumo",
-    rightBin: "yellow",
-    img: lataSumo,
-  },
-  {
-    id: "garrafa-vidro",
-    displaynName: "Garrafa de vidro",
-    rightBin: "green",
-    img: garrafaVidro,
-  },
-  {
-    id: "perfume",
-    displaynName: "Frasco de Perfume",
-    rightBin: "green",
-    img: frascoPerfume,
-  },
-  {
-    id: "caixa",
-    displaynName: "Caixa de Cartão",
-    rightBin: "blue",
-    img: caixaCartao,
-  },
-  {
-    id: "folha",
-    displaynName: "folha de papel",
-    rightBin: "blue",
-    img: folhaPapel,
-  },
-];
 const initLocation: LocationsSet = {
   empty: [],
   yellow: [],
@@ -69,6 +19,7 @@ const initLocation: LocationsSet = {
 };
 
 const RecyclingArea = () => {
+  const { bins, garbage, hasNext, next, level } = useLevels();
   // value savers for location and render of draggable items
   const [draggableLocation, setDraggableLocation] =
     useState<LocationsSet>(initLocation);
@@ -79,11 +30,11 @@ const RecyclingArea = () => {
       baseLocations.empty.push(item.id);
     });
     setDraggableLocation(baseLocations);
-  }, []);
+  }, [garbage]);
 
-  const isFinished = useMemo(
+  const levelCompleted = useMemo(
     () => areAllItemsOnRightSpot(draggableLocation, garbage),
-    [draggableLocation]
+    [draggableLocation, garbage]
   );
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -114,11 +65,14 @@ const RecyclingArea = () => {
     <DndContext onDragEnd={handleDragEnd}>
       <div className="flex w-screen h-screen flex-col">
         <Sky>
-          {isFinished ? (
+          {levelCompleted && !hasNext ? (
             <ChallangeCompleted />
           ) : (
             <NotSortedGarbage
               items={getItemsPerSection(garbage, draggableLocation.empty)}
+              next={next}
+              level={level}
+              isRight={levelCompleted}
             />
           )}
         </Sky>

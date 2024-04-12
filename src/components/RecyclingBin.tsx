@@ -13,7 +13,6 @@ interface RecyclingBinProps {
 const RecyclingBin: FC<RecyclingBinProps> = ({ id, name, items, img }) => {
   return (
     <div className="relative w-1/3 h-96">
-      {/* <p>{`Contentor ${name}`}</p> */}
       <img
         src={img}
         alt={`${name} bin`}
