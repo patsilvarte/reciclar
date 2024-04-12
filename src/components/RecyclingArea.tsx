@@ -10,6 +10,7 @@ import NotSortedGarbage from "./NotSortedGarbage";
 import ChallangeCompleted from "./ChallangeCompleted";
 import Sky from "./Sky";
 import useLevels from "../useLevels";
+import NextLevel from "./NextLevel";
 
 const initLocation: LocationsSet = {
   empty: [],
@@ -19,13 +20,19 @@ const initLocation: LocationsSet = {
 };
 
 const RecyclingArea = () => {
-  const { bins, garbage, hasNext, next, level } = useLevels();
+  const { bins, garbage, hasNext, next, level, restart } = useLevels();
+
   // value savers for location and render of draggable items
   const [draggableLocation, setDraggableLocation] =
     useState<LocationsSet>(initLocation);
 
   useEffect(() => {
-    let baseLocations = { ...initLocation };
+    let baseLocations: LocationsSet = {
+      empty: [],
+      yellow: [],
+      blue: [],
+      green: [],
+    };
     garbage.forEach((item) => {
       baseLocations.empty.push(item.id);
     });
@@ -65,16 +72,18 @@ const RecyclingArea = () => {
     <DndContext onDragEnd={handleDragEnd}>
       <div className="flex w-screen h-screen flex-col">
         <Sky>
-          {levelCompleted && !hasNext ? (
-            <ChallangeCompleted />
-          ) : (
-            <NotSortedGarbage
-              items={getItemsPerSection(garbage, draggableLocation.empty)}
-              next={next}
-              level={level}
-              isRight={levelCompleted}
-            />
-          )}
+          <>
+            {levelCompleted && !hasNext && (
+              <ChallangeCompleted restart={restart} />
+            )}
+            {levelCompleted && hasNext && <NextLevel next={next} />}
+            {!levelCompleted && (
+              <NotSortedGarbage
+                items={getItemsPerSection(garbage, draggableLocation.empty)}
+                level={level}
+              />
+            )}
+          </>
         </Sky>
         <Street garbage={garbage} draggableLocation={draggableLocation}>
           <div className="w-4/5 flex justify-around gap-4 items-center">

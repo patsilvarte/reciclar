@@ -17,12 +17,17 @@ const useLevels = () => {
     }
   };
 
+  const restart = () => {
+    setCurrentLevel(0);
+  };
+
   return {
     level: currentLevel + 1,
     hasNext,
     bins: levels[currentLevel].bins,
     garbage: levels[currentLevel].garbage,
     next,
+    restart,
   };
 };
 
