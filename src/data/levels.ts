@@ -50,6 +50,12 @@ const folhaPapelO: Garbage = {
   img: folhaPapel,
 };
 
+// shampoo
+// tetrapack - leite
+// jornal
+// folhetps
+// caixa da manteiga
+
 export const level1: Level = {
   bins: [yellonBinO, blueBinO, greenBinO],
   garbage: [garrafaAguaO, garrafaVidroO, caixaCartaoO],
