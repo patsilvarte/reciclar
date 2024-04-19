@@ -1,20 +1,16 @@
 import { FC } from "react";
 import Confetti from "react-confetti";
+import Button from "./Button";
 
 interface NextLevelProps {
   next: () => void;
 }
 
-// add animation of clapps
 const NextLevel: FC<NextLevelProps> = ({ next }) => {
   return (
     <>
-      <Confetti
-        width={window.innerWidth}
-        height={window.innerHeight}
-        // drawShape={getStarConfettis}
-      />
-      <button onClick={next}>Próximo nível</button>;
+      <Confetti width={window.innerWidth} height={window.innerHeight} />
+      <Button onClick={next}>Próximo nível</Button>
     </>
   );
 };

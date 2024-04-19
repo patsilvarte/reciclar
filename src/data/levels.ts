@@ -7,6 +7,14 @@ import lataSumo from "../assets/garbage/lata_sumo.png";
 import garrafaVidro from "../assets/garbage/garrafa_vidro.png";
 import folhaPapel from "../assets/garbage/folha_papel.png";
 import frascoPerfume from "../assets/garbage/frasco_perfume.png";
+import pacoteLeite from "../assets/garbage/pacote_leite.png";
+import sacoPlastico from "../assets/garbage/saco_plastico.png";
+import lataSpray from "../assets/garbage/lata_spray.png";
+import pacoteSumo from "../assets/garbage/pacote_sumo.png";
+import garrafaVinho from "../assets/garbage/garrafa_vinho.png";
+import jornal from "../assets/garbage/jornal.png";
+import pastaDentes from "../assets/garbage/pasta_dentes.png";
+import shampoo from "../assets/garbage/shampoo.png";
 import { Bin, Garbage, Level } from "../types";
 
 const yellonBinO: Bin = { name: "Amarelo", id: "yellow", img: yellowBin };
@@ -49,11 +57,56 @@ const folhaPapelO: Garbage = {
   rightBin: "blue",
   img: folhaPapel,
 };
+const pacoteLeiteO: Garbage = {
+  id: "pacote-leite",
+  displaynName: "pacote de leite",
+  rightBin: "yellow",
+  img: pacoteLeite,
+};
+const sacoPlastico0: Garbage = {
+  id: "saco-plastico",
+  displaynName: "saco de plastico",
+  rightBin: "yellow",
+  img: sacoPlastico,
+};
+const lataSpray0: Garbage = {
+  id: "spray",
+  displaynName: "lata de spray",
+  rightBin: "yellow",
+  img: lataSpray,
+};
+const pacoteSumo0: Garbage = {
+  id: "pacote-sumo",
+  displaynName: "pacote de sumo",
+  rightBin: "yellow",
+  img: pacoteSumo,
+};
+const pastaDentes0: Garbage = {
+  id: "pasta-dentes",
+  displaynName: "pasta de dentes",
+  rightBin: "yellow",
+  img: pastaDentes,
+};
+const shampoo0: Garbage = {
+  id: "shampoo",
+  displaynName: "champo",
+  rightBin: "yellow",
+  img: shampoo,
+};
+const garrafaVinho0: Garbage = {
+  id: "garrafa-vinho",
+  displaynName: "garrafa de vinho",
+  rightBin: "green",
+  img: garrafaVinho,
+};
+const jornal0: Garbage = {
+  id: "jornal",
+  displaynName: "jornal",
+  rightBin: "blue",
+  img: jornal,
+};
 
-// shampoo
-// tetrapack - leite
-// jornal
-// folhetps
+// folhetos
 // caixa da manteiga
 
 export const level1: Level = {
@@ -63,6 +116,18 @@ export const level1: Level = {
 export const level2: Level = {
   bins: [yellonBinO, blueBinO, greenBinO],
   garbage: [lataSumoO, frascoPerfumeO, folhaPapelO],
+};
+export const level3: Level = {
+  bins: [yellonBinO, blueBinO, greenBinO],
+  garbage: [lataSpray0, jornal0, pastaDentes0],
+};
+export const level4: Level = {
+  bins: [yellonBinO, blueBinO, greenBinO],
+  garbage: [pacoteLeiteO, sacoPlastico0],
+};
+export const level5: Level = {
+  bins: [yellonBinO, blueBinO, greenBinO],
+  garbage: [pacoteSumo0, garrafaVinho0, shampoo0],
 };
 
 export const bins: Bin[] = [
