@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "./static/css/main.b13b9044.css",
+    "main.js": "./static/js/main.8f90b6b1.js",
+    "static/js/453.c3407558.chunk.js": "./static/js/453.c3407558.chunk.js",
+    "static/media/yellow_bin.png": "./static/media/yellow_bin.467f99a244f6683feb91.png",
+    "static/media/blue_bin.png": "./static/media/blue_bin.328bad00172289423e30.png",
+    "static/media/green_bin.png": "./static/media/green_bin.7c83197ccf6d08da9a55.png",
+    "static/media/beach.jpg": "./static/media/beach.67d3440ae9a3dd711efd.jpg",
+    "static/media/sky.jpg": "./static/media/sky.f3f56a8b43a7674cda13.jpg",
+    "static/media/caixa_cartao.png": "./static/media/caixa_cartao.9fbdc66d5f245289b58e.png",
+    "static/media/item_wrong.png": "./static/media/item_wrong.0e6601137463333902d9.png",
+    "static/media/pasta_dentes.png": "./static/media/pasta_dentes.8d119a5cdba87543fe0e.png",
+    "static/media/saco_plastico.png": "./static/media/saco_plastico.4b0fe554d2c9521ab25e.png",
+    "static/media/item_right.png": "./static/media/item_right.1c6457b266b9005aaf78.png",
+    "static/media/lata_sumo.png": "./static/media/lata_sumo.9997842aa2d525776855.png",
+    "static/media/street.jpg": "./static/media/street.80e020a434f7b1712022.jpg",
+    "static/media/folha_papel.png": "./static/media/folha_papel.b7d4ce83baaf56647abb.png",
+    "static/media/shampoo.png": "./static/media/shampoo.b0258c75076d46a174f9.png",
+    "index.html": "./index.html",
+    "main.b13b9044.css.map": "./static/css/main.b13b9044.css.map",
+    "main.8f90b6b1.js.map": "./static/js/main.8f90b6b1.js.map",
+    "453.c3407558.chunk.js.map": "./static/js/453.c3407558.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b13b9044.css",
+    "static/js/main.8f90b6b1.js"
+  ]
+}
